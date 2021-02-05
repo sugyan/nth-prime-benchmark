@@ -1,6 +1,6 @@
 pub fn trial_division(n: usize) -> u32 {
-    let mut primes = Vec::with_capacity(n + 1);
-    primes.push(2u64);
+    let mut primes = Vec::with_capacity(n);
+    primes.push(2u32);
     while primes.len() <= n {
         if let Some(prime) = (primes[primes.len() - 1] + 1..).find(|&m| {
             primes
@@ -11,7 +11,7 @@ pub fn trial_division(n: usize) -> u32 {
             primes.push(prime);
         }
     }
-    primes[n - 1] as u32
+    primes[n - 1]
 }
 
 pub fn gmp(n: usize) -> u32 {
@@ -43,7 +43,7 @@ pub fn eratosthenes(n: usize) -> u32 {
     let mut limit = 1000;
     loop {
         let primes = list_primes(limit);
-        if primes.len() > n {
+        if primes.len() >= n {
             return primes[n - 1];
         }
         limit *= 2;
@@ -53,8 +53,7 @@ pub fn eratosthenes(n: usize) -> u32 {
 pub fn eratosthenes_pi(n: usize) -> u32 {
     let n_ = n as f64;
     let lg = n_.ln();
-    let lglg = lg.ln();
-    let limit = std::cmp::max(100, (n_ * (lg + lglg)) as usize);
+    let limit = std::cmp::max(100, (n_ * lg * 1.2) as usize);
 
     let mut primes = Vec::new();
     let mut is_prime = vec![true; limit + 1];
@@ -78,8 +77,8 @@ pub fn eratosthenes_pi(n: usize) -> u32 {
 pub fn eratosthenes_wf(n: usize) -> u32 {
     let n_ = n as f64;
     let lg = n_.ln();
-    let lglg = lg.ln();
-    let limit = std::cmp::max(100, (n_ * (lg + lglg)) as usize);
+
+    let limit = std::cmp::max(100, (n_ * lg * 1.2) as usize);
 
     let mut primes = vec![2, 3, 5];
     let mut is_prime = vec![true; limit + 1];
@@ -158,7 +157,7 @@ pub fn atkin(n: usize) -> u32 {
     let mut limit = 1000;
     loop {
         let primes = list_primes(limit);
-        if primes.len() > n {
+        if primes.len() >= n {
             return primes[n - 1];
         }
         limit *= 2;

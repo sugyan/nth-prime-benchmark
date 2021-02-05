@@ -41,4 +41,3 @@ if __name__ == "__main__":
     ps = pstats.Stats(pr, stream=s)
     ps.print_stats("main")
     print(s.getvalue())
-    print(result)
